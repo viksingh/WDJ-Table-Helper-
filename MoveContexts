@@ -1,0 +1,12 @@
+    for (int i = 1; i <= size ; i++){
+    	IReturnElement source = wdContext.nodeReturn().getReturnElementAt(i);
+    	msgMgr.reportSuccess("Inside executeGetLSSs: "+source.getEnvType());
+    	INodesElement node = wdContext.nodeNodes().createAndAddNodesElement();
+    	node.setLogBusSys( source.getLogSndSys());
+   	
+    }
+    
+    
+    
+    Return node has a structure
+    Nodes has a structure
