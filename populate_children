@@ -1,0 +1,28 @@
+  public void supplyRealBusSys(IPrivateNewAWS1ModelController.IRealBusSysNode node, IPrivateNewAWS1ModelController.IBusSysElement parentElement)
+  {
+    //@@begin supplyRealBusSys(IWDNode,IWDNodeElement)
+	  
+	  final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+	  Timestamp timestamp = new Timestamp(System.currentTimeMillis());	  
+
+//	  parentElement.setLogBusSys("BUSSYS"+ timestamp.toString());
+	  
+	  
+	  
+	  com.sap.demo.lss16.wd.comp.new1comp.wdp.IPublicNewAWS1ModelController.IReturnElement source	=  wdContext.nodeReturn().getReturnElementAt(parentElement.index());
+	  
+//	  IBusSysElement buSys = wdContext.nodeBusSys().createAndAddBusSysElement();
+//	  buSys.setLogBusSys(parentElement.getLogBusSys());
+	  
+	  IRealBusSysElement realBusSys = wdContext.createRealBusSysElement();
+	  realBusSys.setDVBusSys(source.getDVBusSys());
+	  realBusSys.setRTBusSys(source.getRTBusSys());
+	  realBusSys.setPPBusSys(source.getPPBusSys());
+	  realBusSys.setPRBusSys(source.getPRBusSys());
+	  
+	  node.addElement(realBusSys);
+
+
+	  
+    //@@end
+  }
