@@ -1,3 +1,5 @@
+   int size = wdContext.nodeReturn().size();
+        
     for (int i = 1; i <= size ; i++){
     	IReturnElement source = wdContext.nodeReturn().getReturnElementAt(i);
     	msgMgr.reportSuccess("Inside executeGetLSSs: "+source.getEnvType());
