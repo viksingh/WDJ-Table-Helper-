@@ -1,0 +1,23 @@
+    	int leadSelected = wdContext.nodeLSSrealBusSystemDisplay().getLeadSelection();    	
+    	
+  	  final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+	  Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+	  
+	  IWDMessageManager msgMgr = wdComponentAPI.getMessageManager();
+	  ILSSrealBusSystemDisplayElement lssRealBusSysElt = wdContext.nodeLSSrealBusSystemDisplay().getLSSrealBusSystemDisplayElementAt(leadSelected);
+	  IActualBusSysElement actBusSysElt = wdContext.nodeActualBusSys().getActualBusSysElementAt(0);
+	  IUpdateLSSNodeRequestElement target = wdContext.nodeUpdateLSSNodeRequest().currentUpdateLSSNodeRequestElement();
+	  
+	  target.setLogBusSys(lssRealBusSysElt.getLogBusSys());
+	  target.setDVBusSys(actBusSysElt.getDVBusSys());
+	  target.setRTBusSys(actBusSysElt.getRTBusSys());
+	  target.setPPBusSys(actBusSysElt.getPPBusSys());
+	  target.setPRBusSys(actBusSysElt.getPRBusSys());
+    wdContext.currentRequest_UpdateLSSNodesElement().modelObject().execute();
+    
+    IUpdateLSSNodesResponseElement respElt = wdContext.nodeUpdateLSSNodesResponse().currentUpdateLSSNodesResponseElement();
+    
+    msgMgr.reportSuccess("Inside executeUpdateLSSNodes : Return code is:  " + respElt.getReturnCodeLSSUpdate());
+    
+//To refresh display    
+    executeGetLSSNodes();   
