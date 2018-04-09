@@ -1,0 +1,77 @@
+To display Model values after a web service call :
+
+requestMO.toString()
+
+-> Create model object
+Request_GetRoutValByCriterion requestMO = wdContext.currentRequest_GetRoutValByCriterionElement().modelObject();
+
+--> Sample code 
+
+ IRtValSearchParamNode sourceNode = wdContext.nodeRtValSearchParam();
+	  IRtValSearchParamElement currentElement = sourceNode.currentRtValSearchParamElement();
+	  
+	  if (currentElement.getEnvType() == null ) {
+		  currentElement.setEnvType("");
+	  }
+  
+	  currentElement.setInterfaceId(0);
+
+	  if (currentElement.getRcvList() == null ) {
+		  currentElement.setRcvList("");
+	  }
+	  	currentElement.setCondGroup(0);
+	  	currentElement.setCounter(0);
+	  
+	  	currentElement.setActive(false);
+		  
+	  	if (currentElement.getRouteObj() == null ) {
+			  currentElement.setRouteObj("");
+		  }
+
+	  	if (currentElement.getRoutingValue() == null ) {
+			  currentElement.setRoutingValue("");
+		  }
+
+	  	if (currentElement.getLogSndSys() == null ) {
+			  currentElement.setLogSndSys("");
+		  }
+
+	  	if (currentElement.getInterfaceName() == null ) {
+			  currentElement.setInterfaceName("");
+		  }
+	  
+	  Request_GetRoutValByCriterion requestMO = wdContext.currentRequest_GetRoutValByCriterionElement().modelObject();
+	  try
+    {
+   	requestMO.execute();
+   	
+    wdContext.nodeReturnRoutValByCriterion().invalidate();
+    
+    final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+ 	  Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+ 	  IWDMessageManager msgMgr = wdComponentAPI.getMessageManager();
+ 	  
+
+ 	  msgMgr.reportSuccess("Req Log" + requestMO.wdGetRequestLog());    	
+ 	  msgMgr.reportSuccess("Resp Log" + requestMO.wdGetResponseLog());
+ 	  msgMgr.reportSuccess("Model Info : To String" + requestMO.associatedModelClassInfo().getModelInfo().toString());
+ 	  msgMgr.reportSuccess("To STring" + requestMO.toString());
+ 	  
+    } catch(Exception e){
+    	
+    	
+    final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+   	  Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+   	  IWDMessageManager msgMgr = wdComponentAPI.getMessageManager();
+   	  
+   	msgMgr.reportSuccess("Error " + e.getStackTrace().toString() );
+   	  msgMgr.reportSuccess("Req Log" + requestMO.wdGetRequestLog());    	
+   	  msgMgr.reportSuccess("Resp Log" + requestMO.wdGetResponseLog());
+   	  msgMgr.reportSuccess("Model Info : To String" + requestMO.associatedModelClassInfo().getModelInfo().toString());
+   	  msgMgr.reportSuccess("To STring" + requestMO.toString());
+      
+      
+      Sample Output-->
+
+<modelObject class="com.sap.demo.mntnrout.wd.models.routvalmodel.Request_GetRoutValByCriterion"><target roleName="GetRoutValByCriterion"><modelObject class="com.sap.demo.mntnrout.wd.models.routvalmodel.GetRoutValByCriterion"><target roleName="RtValSearchParam"><modelObject class="com.sap.demo.mntnrout.wd.models.routvalmodel.RoutVal"><attribute name="Active" value="false"/><attribute name="CondGroup" value="0"/><attribute name="Counter" value="0"/><attribute name="EnvType" value=""/><attribute name="InterfaceId" value="0"/><attribute name="InterfaceName" value=""/><attribute name="LogSndSys" value="AMS"/><attribute name="RcvList" value=""/><attribute name="RouteObj" value=""/><attribute name="RoutingValue" value=""/></modelObject></target></modelObject></target><target roleName="Response"><modelObject class="com.sap.demo.mntnrout.wd.models.routvalmodel.Response_GetRoutValByCriterion"><target roleName="GetRoutValByCriterionResponse"><modelObject class="com.sap.demo.mntnrout.wd.models.routvalmodel.GetRoutValByCriterionResponse"><targets roleName="Return"><modelObject class="com.sap.demo.mntnrout.wd.models.routvalmodel.RoutVal"><attribute name="Active" value="true"/><attribute name="CondGroup" value="1"/><attribute name="Counter" value="1"/><attribute name="EnvType" value="DV"/><attribute name="InterfaceId" value="741"/><attribute name="InterfaceName" value="SHPMNT.SHPMNT05./GLB/UGTX_SHPMNT05_TMS"/><attribute name="LogSndSys" value="AMS_GT_A_R3E_SFIN"/><attribute name="RcvList" value="AMS_US_S_USEWMS5081_WMS"/><attribute name="RouteObj" value="SHPMNT_RCVPRN"/><attribute name="RoutingValue" value="USEWMS5081"/></modelObject></targets></modelObject></target></modelObject></target></modelObject>
+      
